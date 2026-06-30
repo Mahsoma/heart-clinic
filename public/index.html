@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="موقع عيادة القلب المتكامل لحجز المواعيد واستلام الوصفات الطبية بشكل فوري ومباشر مع الدعم الفني الذكي.">
+  <title>نبض ورعاية | عيادة طب وجراحة القلب</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons for Beautiful UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fa-solid fa-heart-pulse logo-icon animate-pulse"></i>
+        <div class="logo-text">
+          <h1>نبض ورعاية</h1>
+          <span>عيادة طب وجراحة القلب</span>
+        </div>
+      </div>
+      <nav>
+        <button id="btn-patient-portal" class="nav-btn active"><i class="fa-solid fa-user-injured"></i> بوابة المريض</button>
+        <button id="btn-doctor-portal" class="nav-btn"><i class="fa-solid fa-user-md"></i> لوحة التحكم للطبيب</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- 1. Patient Portal Section -->
+    <section id="patient-section" class="portal-section active">
+      <div class="hero-section">
+        <h2>ننبض برعاية، لسلامة قلبك</h2>
+        <p>احجز موعدك الآن بكل سهولة، وتابع حالتك الطبية ووصفات العلاج الخاصة بك فور صدورها من الطبيب المختص.</p>
+      </div>
+
+      <div class="grid-container">
+        <!-- Booking Form Card -->
+        <div class="card booking-card">
+          <div class="card-header">
+            <i class="fa-solid fa-calendar-check card-icon"></i>
+            <h3>استمارة حجز موعد جديد</h3>
+          </div>
+          <form id="booking-form" class="clinic-form">
+            <div class="form-group">
+              <label for="patient-name">اسم المريض الكامل</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="patient-name" placeholder="مثال: محمد أحمد العلي" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="patient-age">العمر (سنوات)</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                  <input type="number" id="patient-age" min="1" max="120" placeholder="العمر" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="patient-height">الطول (سم)</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-ruler-vertical"></i>
+                  <input type="number" id="patient-height" min="50" max="250" placeholder="الطول" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="patient-weight">الوزن (كغم)</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-weight-scale"></i>
+                  <input type="number" id="patient-weight" min="10" max="300" placeholder="الوزن" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="patient-symptoms">المشاكل الصحية والأعراض الحالية</label>
+              <div class="textarea-wrapper">
+                <i class="fa-solid fa-notes-medical"></i>
+                <textarea id="patient-symptoms" rows="4" placeholder="يرجى وصف أي ألم بالصدر، خفقان، ضيق في التنفس أو أعراض أخرى بالتفصيل..." required></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="btn-submit-booking">
+              <span>تأكيد حجز الموعد</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- Check Prescription Card -->
+        <div class="card status-card">
+          <div class="card-header">
+            <i class="fa-solid fa-prescription-bottle-medical card-icon"></i>
+            <h3>استعلام عن الوصفة الطبية</h3>
+          </div>
+          <p class="section-desc">أدخل اسمك أو رقم الحجز لمشاهدة العلاج الموصوف لك من قبل الطبيب فور إرساله.</p>
+          
+          <div class="search-box">
+            <div class="input-wrapper">
+              <i class="fa-solid fa-search"></i>
+              <input type="text" id="search-query" placeholder="أدخل اسم المريض أو رقم الحجز...">
+            </div>
+            <button id="btn-search-booking" class="btn btn-secondary">بحث</button>
+          </div>
+
+          <div id="search-result-container" class="search-result-container">
+            <!-- Dynamically populated or default instruction -->
+            <div class="empty-state">
+              <i class="fa-solid fa-info-circle"></i>
+              <p>قم بالبحث أعلاه لعرض تفاصيل وصفتك الطبية.</p>
+            </div>
+          </div>
+
+          <!-- Prescription View (Read-Only) -->
+          <div class="prescription-box-wrapper hidden" id="prescription-view-card">
+            <div class="prescription-header">
+              <span class="rx-symbol">Rx</span>
+              <h4>الوصفة الطبية الموصوفة</h4>
+              <span id="rx-patient-id" class="rx-id">B-0000</span>
+            </div>
+            <div class="rx-body">
+              <p class="rx-patient-meta">المريض: <strong id="rx-patient-name">-</strong></p>
+              <div class="prescription-textarea-readonly" id="rx-content" readonly>
+                بانتظار مراجعة الطبيب وتدوين العلاج...
+              </div>
+            </div>
+            <div class="rx-footer">
+              <i class="fa-solid fa-file-signature"></i>
+              <span>تحديث فوري ومباشر</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Doctor Dashboard Section -->
+    <section id="doctor-section" class="portal-section">
+      <div class="doctor-header-bar">
+        <div>
+          <h2>لوحة التحكم الطبية</h2>
+          <p>إدارة طلبات المراجعة، الفحص السريري، وكتابة الوصفات الطبية للمرضى.</p>
+        </div>
+        <button id="btn-refresh-appointments" class="btn btn-secondary">
+          <i class="fa-solid fa-rotate"></i> تحديث الحجوزات
+        </button>
+      </div>
+
+      <!-- Secure Login View -->
+      <div id="doctor-auth-card" class="card auth-card">
+        <i class="fa-solid fa-lock auth-lock-icon"></i>
+        <h3>لوحة الطبيب محمية</h3>
+        <p>يرجى إدخال رمز المرور السري الخاص بالطبيب للدخول (الرمز: 1234)</p>
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-key"></i>
+            <input type="password" id="doctor-passcode" placeholder="رمز المرور">
+          </div>
+        </div>
+        <button id="btn-auth-doctor" class="btn btn-primary">تسجيل الدخول</button>
+        <p id="auth-error-msg" class="error-text hidden">رمز المرور غير صحيح!</p>
+      </div>
+
+      <!-- Main Appointments List (Hidden by default until authed) -->
+      <div id="doctor-dashboard-content" class="hidden">
+        <div id="appointments-list-container" class="appointments-grid">
+          <!-- Populated by JS -->
+          <div class="no-appointments">
+            <i class="fa-solid fa-calendar-xmark"></i>
+            <p>لا توجد حجوزات مسجلة حالياً.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast/Notification container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Chatbot Floating UI -->
+  <div class="chatbot-wrapper">
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle-btn" id="chatbot-toggle" title="مساعد صحة القلب الذكي">
+      <i class="fa-solid fa-comments"></i>
+      <span class="badge">1</span>
+    </button>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window hidden" id="chatbot-window">
+      <div class="chatbot-header">
+        <div class="bot-info">
+          <i class="fa-solid fa-heart-circle-bolt bot-icon animate-pulse"></i>
+          <div>
+            <h4>نبض الذكي</h4>
+            <span>مساعدك الطبي الفوري</span>
+          </div>
+        </div>
+        <button id="chatbot-close-btn" class="close-btn"><i class="fa-solid fa-times"></i></button>
+      </div>
+
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chat-message bot">
+          <div class="message-bubble">
+            أهلاً بك! أنا "نبض"، مساعدك الذكي لصحة القلب وعيادتنا. كيف يمكنني مساعدتك اليوم؟ يمكنك سؤالي عن مواعيد العيادة، سعر الكشف، موقع العيادة، أو الحالات الطارئة.
+          </div>
+        </div>
+      </div>
+
+      <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="اكتب سؤالك هنا..." autocomplete="off">
+        <button id="chatbot-send-btn"><i class="fa-solid fa-paper-plane-rtl"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <p>جميع الحقوق محفوظة © 2026 عيادة نبض ورعاية لطب القلب</p>
+      <div class="footer-links">
+        <span>اتصل بنا: 92000000</span> | <span>الحالات الطارئة: 997</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
